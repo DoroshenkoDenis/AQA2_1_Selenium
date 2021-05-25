@@ -18,8 +18,8 @@ public class CallbackTestWebDriverManager {
     @BeforeAll
     static void setUpAll() {
 //  библиотека webdriver manager автоматически определяет ОС и версию браузера, скачивает и устанавливает подходящий файл драйвера
-//        WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+//        System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
     }
 
     @BeforeEach
@@ -28,7 +28,6 @@ public class CallbackTestWebDriverManager {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
-        driver = new ChromeDriver();
         driver.get("http://localhost:9999");
     }
 
