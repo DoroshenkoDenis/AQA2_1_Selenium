@@ -18,7 +18,8 @@ public class CallbackTestWebDriverManager {
     @BeforeAll
     static void setUpAll() {
 //  библиотека webdriver manager автоматически определяет ОС и версию браузера, скачивает и устанавливает подходящий файл драйвера
-        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.chromedriver().setup();
+        System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
     }
 
     @BeforeEach
