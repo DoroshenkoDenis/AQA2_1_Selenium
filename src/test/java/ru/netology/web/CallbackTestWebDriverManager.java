@@ -19,7 +19,6 @@ public class CallbackTestWebDriverManager {
     static void setUpAll() {
 //  библиотека webdriver manager автоматически определяет ОС и версию браузера, скачивает и устанавливает подходящий файл драйвера
         WebDriverManager.chromedriver().setup();
-//        System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
     }
 
     @BeforeEach
@@ -47,5 +46,70 @@ public class CallbackTestWebDriverManager {
         assertTrue(driver.findElement(cssSelector("[data-test-id=order-success]")).isEnabled());
     }
 
+    @Test
+    public void shouldWarnIfAllFieldsEmpty() {
+        driver.findElement(cssSelector(".form-field .button__content")).click();
+        assertTrue(driver.findElement(cssSelector(".input_invalid")).isEnabled());
+    }
+
+    @Test
+    public void shouldWarnIfNameFieldsEmpty() {
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+77777777777");
+        driver.findElement(cssSelector("[data-test-id=agreement] .checkbox__box")).click();
+        driver.findElement(cssSelector(".form-field .button__content")).click();
+        assertTrue(driver.findElement(cssSelector(".input_invalid")).isEnabled());
+    }
+
+    @Test
+    public void shouldWarnIfTelephoneFieldsEmpty() {
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Денис Дорошенко");
+        driver.findElement(cssSelector("[data-test-id=agreement] .checkbox__box")).click();
+        driver.findElement(cssSelector(".form-field .button__content")).click();
+        assertTrue(driver.findElement(cssSelector(".input_invalid")).isEnabled());
+    }
+
+    @Test
+    public void shouldWarnIfCheckboxFieldsEmpty() {
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Денис Дорошенко");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+77777777777");
+        driver.findElement(cssSelector(".form-field .button__content")).click();
+        assertTrue(driver.findElement(cssSelector(".input_invalid")).isEnabled());
+    }
+
+    @Test
+    public void shouldWarnIfBadName() {
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("kek lol");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+77777777777");
+        driver.findElement(cssSelector("[data-test-id=agreement] .checkbox__box")).click();
+        driver.findElement(cssSelector(".form-field .button__content")).click();
+        assertTrue(driver.findElement(cssSelector(".input_invalid")).isEnabled());
+    }
+
+    @Test
+    public void shouldWarnIfBadTelephone1() {
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Денис Дорошенко");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345");
+        driver.findElement(cssSelector("[data-test-id=agreement] .checkbox__box")).click();
+        driver.findElement(cssSelector(".form-field .button__content")).click();
+        assertTrue(driver.findElement(cssSelector(".input_invalid")).isEnabled());
+    }
+
+    @Test
+    public void shouldWarnIfBadTelephone2() {
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Денис Дорошенко");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+123456789012");
+        driver.findElement(cssSelector("[data-test-id=agreement] .checkbox__box")).click();
+        driver.findElement(cssSelector(".form-field .button__content")).click();
+        assertTrue(driver.findElement(cssSelector(".input_invalid")).isEnabled());
+    }
+
+    @Test
+    public void shouldWarnIfBadTelephone3() {
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Денис Дорошенко");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+abcdefghijk");
+        driver.findElement(cssSelector("[data-test-id=agreement] .checkbox__box")).click();
+        driver.findElement(cssSelector(".form-field .button__content")).click();
+        assertTrue(driver.findElement(cssSelector(".input_invalid")).isEnabled());
+    }
 }
 
