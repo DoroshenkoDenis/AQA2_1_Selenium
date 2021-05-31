@@ -14,5 +14,6 @@ install:
   - java -jar ./artifacts/app-order.jar &
 
 build_script:
+  - -Dlog4j.debug
   - chmod +x gradlew # +x добавить права на (execute) выполнение файла (chmod (от англ. change mode) — команда для изменения прав доступа к файлам и каталогам, используемая в Unix-подобных операционных системах)
   - ./gradlew test -Dselenium.headless=true --info  # запускаем тест, флаг --info позволяет выводить больше информации, стартуем Selenide в Headless-режиме
